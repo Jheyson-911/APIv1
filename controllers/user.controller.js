@@ -38,7 +38,7 @@ const createUser = async(req, res) => {
         if(createUser){
             res.json({
                 message: "Usuario creado exitosamente",
-                createUser
+                data: createUser
             })
         }
     }catch(e){
@@ -69,7 +69,7 @@ const updateUser = async (req, res) => {
         const user = await User.update({ email, password, username }, { where:{ id} })
         res.json({
             message: "Usuario actualizado correctamente",
-            user
+            data:user
         })
     }catch(e){
         res.json({
@@ -84,7 +84,7 @@ const getUserById = async (req, res) =>{
         const user = await User.findOne({where:{ id }})
         res.json({
             message: "Usuario encontrado",
-            user
+            data:user
         })
     }catch(e){
         res.json({
@@ -110,7 +110,7 @@ const userLogin = async (req, res) => {
             const token = jwt.sign({user: userLogin.username},privateKey,{expiresIn: '10days'});
             res.json({
                 message: "Bienvenido "+ userLogin.username,
-                token: token
+                data: token
             })
         }else{
             res.json({

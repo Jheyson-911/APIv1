@@ -23,7 +23,7 @@ const createPersona = async(req,res)=>{
         if(createPersona){
             res.json({
                 message: "Persona creada exitosamente",
-                createPersona
+                data:createPersona
             })
         }
     }catch(e){
@@ -37,9 +37,10 @@ const createPersona = async(req,res)=>{
 const deletePersona = async(req, res)=>{
     const { id } = req.params
     try{
-        await Persona.destroy({ where:{id}})
+        const persona = await Persona.destroy({ where:{id}})
         res.json({
-            message: "Persona eliminada exitosamente"
+            message: "Persona eliminada exitosamente",
+            data: persona
         })
     }catch(e){
         res.json({
@@ -56,7 +57,7 @@ const updatePersona = async(req,res)=>{
         const persona = await Persona.update({ dni, nombre, apellido_paterno , apellido_materno, telefono, genero, correo},{where :{id}})
         res.json({
             message: "Persona actualizada correctamente",
-            persona
+            data: persona
         })
     }catch(e){
         res.json({
@@ -72,7 +73,7 @@ const getPersonaById = async(req,res)=>{
         const persona = await Persona.findOne({where:{ id }})
         res.json({
              message: "Persona encontrada",
-             persona
+             data: persona
         })
     }catch(e){
         res.json({
